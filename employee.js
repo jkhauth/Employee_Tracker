@@ -19,9 +19,18 @@ var start = function (){
         name: "choice",
         type: "list",
         message: "What would you like to do?",
-        choices: ["View Departments","View Roles","View Employees","Add Department", "Add Job Role", "Add Employee"]
+        choices: ["View Departments","View Roles","View Employees","Add Department", "Add Job Role", "Add Employee", "Update Employee"]
     }).then(function(answer){
-        if(answer.choice=="Add Department"){
+        if (answer.choice=="View Departments"){
+            viewDepartments();
+        }
+        else if (answer.choice=="View Roles"){
+            viewRole();
+        }
+        else if (answer.choice=="View Employees"){
+            viewEmployees();
+        }
+        else if(answer.choice=="Add Department"){
             addDepartment();
         }
         else if (answer.choice=="Add Job Role"){
@@ -30,14 +39,8 @@ var start = function (){
         else if (answer.choice=="Add Employee"){
             addEmployee();
         }
-        else if (answer.choice=="View Departments"){
-            viewDepartments();
-        }
-        else if (answer.choice=="View Roles"){
-            viewRole();
-        }
-        else if (answer.choice=="View Employees"){
-            viewEmployees();
+        else if (answer.choice=="Update Employee"){
+            updateEmployee();
         }
     })
 }
@@ -127,7 +130,6 @@ var viewDepartments = function (){
     console.log("Selecting all departments...\n");
     connection.query("SELECT * FROM department", function(err, res) {
     if (err) throw err;
-    // Log all results of the SELECT statement
     console.table(res);
     start();
   });
@@ -137,7 +139,6 @@ var viewRole = function (){
     console.log("Selecting all job roles...\n");
     connection.query("SELECT * FROM jobcode", function(err, res) {
     if (err) throw err;
-    // Log all results of the SELECT statement
     console.table(res);
     start();
   });
@@ -147,10 +148,29 @@ var viewEmployees = function (){
     console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function(err, res) {
     if (err) throw err;
-    // Log all results of the SELECT statement
     console.table(res);
     start();
   });
 }
 
 //======UPDATING INFORMATION FROM DATABASE FUNCTIONALITY==============//
+var updateEmployee = function (){
+    inquirer.prompt([{
+        name: "chosenEmployee",
+        type: "input",
+        message: "What is the employee's id?"
+    },{
+        name: "newRole",
+        type: "input",
+        message: "What is the new role id?"
+    }
+    ]).then(function(answer){
+        connection.query("UPDATE employee SET ? WHERE ?", 
+        [{role_id:answer.newRole},
+        {id:answer.chosenEmployee}], function(err,res){
+            console.log("Succesfully Updated Employee")
+            console.log()
+            start();  
+        })
+    })
+}
