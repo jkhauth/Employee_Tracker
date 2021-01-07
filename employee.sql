@@ -7,7 +7,7 @@ CREATE TABLE department (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE role (
+CREATE TABLE jobcode (
     id INTEGER NOT NULL AUTO_INCREMENT,
     title VARCHAR(30),
     salary DECIMAL,

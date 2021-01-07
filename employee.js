@@ -68,10 +68,10 @@ var addJobRole = function (){
         message: "what is the deparment?"
         }
     ]).then(function(answer){
-        connection.query("INSERT INTO role SET ?", {
+        connection.query("INSERT INTO jobcode SET ?", {
             title: answer.jobtitle,
             salary: answer.salary,
-            deparment_id: answer.deparmentnumber
+            department_id: answer.departmentnumber
         }, function(err,res){
             console.log("Succesfully Added Job Role")
             start()
