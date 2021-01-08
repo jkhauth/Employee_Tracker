@@ -1,7 +1,8 @@
 # Employee System Creation
 ## Description: 
  Using node, a company can use this application alongside their MySQL database in order to do tasks using the CRUD(create, read, update, delete) method.
-
+## Video:
+https://drive.google.com/file/d/1dkY4uqxqHwedwgpcwnXvar0aQn6LTmeq/view
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Table of Contents: 
 *[Install](#install) 
