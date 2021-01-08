@@ -22,4 +22,20 @@ CREATE TABLE employee (
     role_id INT,
     manager_id INT,
     PRIMARY KEY (id)
-)
+);
+
+-- Department Creation
+INSERT INTO department (name)
+VALUES ("sales");
+INSERT INTO department (name)
+VALUES ("Engineers");
+INSERT INTO department (name)
+VALUES ("Managers");
+
+-- JOB ROLE Creation
+INSERT INTO jobcode (title, salary, department_id)
+VALUES ("Sale Associate", 60000, 1);
+INSERT INTO jobcode (title, salary, department_id)
+VALUES ("Engineer", 85000, 2);
+INSERT INTO jobcode (title, salary, department_id)
+VALUES ("Managers", 100000, 3);

@@ -19,7 +19,7 @@ var start = function (){
         name: "choice",
         type: "list",
         message: "What would you like to do?",
-        choices: ["View Departments","View Roles","View Employees","Add Department", "Add Job Role", "Add Employee", "Update Employee"]
+        choices: ["View Departments","View Roles","View Employees","Add Department", "Add Job Role", "Add Employee", "Update Employee", "Delete Employee"]
     }).then(function(answer){
         if (answer.choice=="View Departments"){
             viewDepartments();
@@ -41,6 +41,9 @@ var start = function (){
         }
         else if (answer.choice=="Update Employee"){
             updateEmployee();
+        }
+        else if (answer.choice=="Delete Employee"){
+            deleteEmployee();
         }
     })
 }
@@ -167,10 +170,32 @@ var updateEmployee = function (){
     ]).then(function(answer){
         connection.query("UPDATE employee SET ? WHERE ?", 
         [{role_id:answer.newRole},
-        {id:answer.chosenEmployee}], function(err,res){
+        {id:answer.chosenEmployee}], 
+        function(err,res){
             console.log("Succesfully Updated Employee")
             console.log()
             start();  
         })
+    })
+}
+
+//======DELETING INFORMATION FROM DATABASE FUNCTIONALITY==============//
+var deleteEmployee = function (){
+    inquirer.prompt([{
+        name: "chosenEmployee",
+        type: "input",
+        message: "What is the employee's id?"
+    }
+    ]).then(function(answer){
+        connection.query(
+            "DELETE FROM employee WHERE ?",
+            {
+              id: answer.chosenEmployee
+            },
+            function(err, res) {
+              if (err) throw err;
+              start();
+            }
+          );
     })
 }
